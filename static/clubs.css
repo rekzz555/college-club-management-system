@@ -1,0 +1,710 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%; /* instead of height: 100% */
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    padding-top: 48px; /* keep padding for navbar */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Prevent scrolling when modal is open */
+body.modal-open {
+    overflow: hidden; /* Disable scrolling */
+    position: fixed; /* Prevent page movement */
+    width: 100%; /* Ensure the body width remains consistent */
+}
+
+.navbar {
+    width: 100%;
+    height: 65px; /* Height of the navbar */
+    background: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure the navbar is above other content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+}
+
+.arrow-button {
+    position: fixed; /* Fix the button to the top center */
+    top: -10px; /* Adjust the vertical position */
+    left: 3%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset by 50% of its width to truly center */
+    background: none;
+    border: none;
+    font-size: 50px; /* Adjust the size of the arrow */
+    color: #007BFF; /* Primary blue color */
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s ease;
+    z-index: 1001; /* Ensure it is above other content */
+}
+
+.arrow-button:hover {
+    color: #6A0DAD; /* Purple on hover */
+}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px; /* Add spacing below the navbar */
+    max-width: 1200px;
+    margin: 0 auto; /* Center the content */
+    overflow: auto; /* Ensure content is scrollable if it overflows */
+}
+
+.card {
+    width: 280px;
+    height: 360px;
+    margin: 20px; /* Adds spacing around each card */
+    padding: 2rem 1rem;
+    background: #ffffff; /* White background for cards */
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 10px; /* Add rounded corners */
+    overflow: hidden; /* Ensure content stays within the card */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Lift the card on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on hover */
+}
+
+.card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Less transparent white overlay */
+    z-index: 2;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0; /* Initially hidden */
+}
+
+.card:hover:before {
+    opacity: 1; /* Show the overlay on hover */
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.card .info {
+    position: relative;
+    z-index: 3;
+    color: #000; /* Set the info text color to black */
+    opacity: 0;
+    transform: translateY(30px);    /* Start slightly below the card */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    text-align: center; /* Center-align all content inside the card */
+}
+
+.card:hover .info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card .info h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #0056b3; /* Brighter blue for club names */
+}
+
+.card .info p {
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    color: #555; /* Medium gray for descriptions */
+}
+
+.card .info .btn {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: #007bff; /* Primary blue background */
+    color: #fff; /* White text */
+    font-size: 14px;
+    font-weight: bold; /* Make the button text bold */
+    cursor: pointer;
+    border-radius: 5px; /* Add rounded corners to the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the button */
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    display: inline-block; /* Ensure buttons are treated as inline-block elements */
+    margin: 0.5rem; /* Add spacing between the buttons */
+}
+
+.card .info .btn:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.card .info .btn:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+    transform: translateY(1px); /* Slight press effect on click */
+}
+
+.card .info .read-more {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: #007bff; /* Primary blue background */
+    color: #fff; /* White text */
+    font-size: 14px;
+    font-weight: bold; /* Make the button text bold */
+    cursor: pointer;
+    border-radius: 5px; /* Add rounded corners to the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the button */
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    display: inline-block; /* Ensure buttons are treated as inline-block elements */
+    margin: 0.5rem; /* Add spacing between the buttons */
+}
+
+.card .info .read-more:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.card .info .read-more:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+    transform: translateY(1px); /* Slight press effect on click */
+}
+
+/* Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 25%; /* Center vertically */
+    left: 25%; /* Center horizontally */
+    width: 100%;
+    height: 100%;
+   
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
+}
+
+/* Specific Styles for Register Modal */
+.register-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Ensure it appears above other modals */
+    overflow-y: auto;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px; /* Limit the maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #333; /* Dark gray text */
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #007bff; /* Primary blue color */
+}
+
+/* Modal Description */
+.modal-description {
+    font-size: 1.2rem;
+    color: #555; /* Medium gray for better readability */
+    line-height: 1.8;
+    text-align: justify; /* Align text for better readability */
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 15px; /* Adjust vertical position */
+    right: 20px; /* Adjust horizontal position */
+    font-size: 24px; /* Larger size for better visibility */
+    color: #aaa; /* Default color */
+    cursor: pointer;
+    padding: 10px; /* Add padding for a larger clickable area */
+    border-radius: 50%; /* Optional: Make it circular */
+    transition: color 0.3s ease, transform 0.3s ease; /* Add hover effects */
+}
+
+.close-button:hover {
+    color: #f44336; /* Red color on hover */
+    transform: scale(1.2); /* Slightly enlarge on hover */
+}
+
+.close-button:active {
+    color: #d32f2f; /* Darker red on click */
+    transform: scale(1); /* Reset scale on click */
+}
+
+/* Form styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add spacing between form elements */
+}
+
+form label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+form input,
+form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add subtle glow */
+}
+
+form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+form button:active {
+    background-color: #003f7f;
+}
+
+.description .more-text {
+    display: none; /* Hide the extra text by default */
+}
+
+.description.expanded .more-text {
+    display: inline; /* Show the extra text when expanded */
+}
+
+.description.expanded .read-more {
+    display: none; /* Hide the "Read More" link when expanded */
+}
+
+.read-more {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: #007bff; /* Primary blue background */
+    color: #fff; /* White text */
+    font-size: 14px;
+    font-weight: bold; /* Make the button text bold */
+    cursor: pointer;
+    border-radius: 5px; /* Add rounded corners to the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the button */
+    transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.read-more:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.read-more:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+    transform: translateY(1px); /* Slight press effect on click */
+}
+
+form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Form group styling */
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-group label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    pointer-events: none; /* Prevent the label from being clicked */
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -15px;
+    left: 10px;
+    font-size: 12px;
+    color: #007bff;
+}
+
+/* Spinner Overlay */
+#spinnerOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above all other content */
+}
+
+/* Spinner */
+.spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db; /* Blue color */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Register Modal */
+#registerModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
+}
+
+#registerModal .modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px; /* Limit the maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    position: relative;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #333; /* Dark gray text */
+}
+
+#registerModal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#registerModal .close-button:hover {
+    color: #000;
+}
+
+/* Register Form Styling */
+#registerModal .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add spacing between form elements */
+}
+
+#registerModal .register-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #6A0DAD; /* Purple heading color */
+    text-align: center;
+}
+
+#registerModal .register-form .form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#registerModal .register-form input,
+#registerModal .register-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#registerModal .register-form input:focus,
+#registerModal .register-form select:focus {
+    border-color: #00C9A7; /* Teal border on focus */
+    box-shadow: 0 0 5px rgba(0, 201, 167, 0.5); /* Teal glow */
+}
+
+#registerModal .register-form label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    pointer-events: none; /* Prevent the label from being clicked */
+}
+
+#registerModal .register-form input:focus + label,
+#registerModal .register-form input:not(:placeholder-shown) + label,
+#registerModal .register-form select:focus + label,
+#registerModal .register-form select:not(:placeholder-shown) + label {
+    top: -15px;
+    left: 10px;
+    font-size: 12px;
+    color: #00C9A7; /* Teal label color on focus */
+    background: #fff; /* Add background to prevent overlap */
+    padding: 0 5px;
+}
+
+#registerModal .register-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    resize: vertical; /* Allow vertical resizing only */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#registerModal .register-form textarea:focus {
+    border-color: #00C9A7; /* Teal border on focus */
+    box-shadow: 0 0 5px rgba(0, 201, 167, 0.5); /* Teal glow */
+}
+
+#registerModal .register-form textarea:focus + label,
+#registerModal .register-form textarea:not(:placeholder-shown) + label {
+    top: -15px;
+    left: 10px;
+    font-size: 12px;
+    color: #00C9A7; /* Teal label color on focus */
+    background: #fff; /* Add background to prevent overlap */
+    padding: 0 5px;
+}
+
+#registerModal .register-form button {
+    background: linear-gradient(135deg, #00C9A7, #6A0DAD); /* Teal to Purple gradient */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#registerModal .register-form button:hover {
+    background: linear-gradient(135deg, #6A0DAD, #00C9A7); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+#registerModal .register-form button:active {
+    background: #0056b3; /* Darker blue on click */
+    transform: translateY(1px); /* Slight press effect */
+}
+
+
+/* Close Modal Button */
+.close-modal-btn {
+    background: #f44336; /* Red background for the close button */
+    color: #fff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px; /* Add spacing above the close button */
+}
+
+.close-modal-btn:hover {
+    background: #d32f2f; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.close-modal-btn:active {
+    background: #b71c1c; /* Even darker red on click */
+    transform: translateY(1px); /* Slight press effect */
+}
+
+/* Read More Container */
+.read-more-container {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333; /* Dark gray text */
+    line-height: 1.6;
+    text-align: justify; /* Align text for better readability */
+}
+
+/* Description Text */
+.description .more-text {
+    display: none; /* Hide the extra text by default */
+}
+
+.description.expanded .more-text {
+    display: inline; /* Show the extra text when expanded */
+}
+
+.description.expanded .read-more-btn {
+    display: none; /* Hide the "Read More" button when expanded */
+}
+
+/* Read More Button */
+.read-more-btn {
+    display: inline-block;
+    background: #007bff; /* Primary blue background */
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.read-more-btn:hover {
+    background: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.read-more-btn:active {
+    background: #003f7f; /* Even darker blue on click */
+    transform: translateY(1px); /* Slight press effect */
+}
+
+/* Popup Modal */
+/* Popup Modal for Success/Error Messages */
+.popup-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: sans-serif;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.popup-content.success {
+    border: 3px solid green;
+}
+
+.popup-content.error {
+    border: 3px solid red;
+}
+
+.popup-content button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+

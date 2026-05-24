@@ -1,0 +1,533 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #f0f8ff, #e6e6fa); /* Light gradient background */
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Optional Subtle Texture Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-size: cover;
+    background-position: center;
+    opacity: 0.03; /* Very subtle overlay effect */
+    z-index: -1; /* Ensure the background is behind other content */
+}
+
+/* ====== Dashboard & Navbar Styles ====== */
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  padding: 10px 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Lower than the side menu */
+  height: 75px;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    padding: 6px 30px; /* Increase horizontal padding for wider buttons */
+    font-size: 14px; /* Keep the font size consistent */
+    border-radius: 25px; /* Maintain rounded edges */
+    background: linear-gradient(135deg, #007BFF, #00C9A7);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: auto; /* Allow buttons to adjust based on padding */
+    text-align: center; /* Ensure text is centered */
+}
+
+.nav-button:hover {
+    background: linear-gradient(135deg, #00C9A7, #6A0DAD);
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.nav-button:active {
+    background: #6A0DAD; /* Solid purple on click */
+}
+
+#content {
+    text-align: center;
+    margin: 20px 0;
+    margin-top: 150px; /* Adjusted to create a proper gap between the navbar and the cards */
+}
+
+/* Side Menu */
+/* Side Menu with Glass Effect */
+.side-menu {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: flex-start; /* Align buttons to the left */
+    gap: 5px; /* Reduce spacing between the buttons */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 123, 255, 0.2); /* Semi-transparent blue */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 60px 20px; /* Increased top padding to move buttons below the hamburger */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.side-menu.visible {
+    transform: translateX(0);
+    top: 0; /* Position on top of navbar */
+    height: 100%; /* Full viewport height */
+    z-index: 1200; /* Above navbar and hamburger */
+}
+
+.profile-button,
+.logout-button {
+    display: block; /* Ensure buttons take full width */
+    width: 100%; /* Make buttons stretch to the container width */
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #007BFF, #00C9A7);
+    color: white;
+    border: none;
+    border-radius: 8px; /* Slightly rounded corners */
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 0; /* Remove extra margin to reduce space */
+}
+
+.profile-button:hover,
+.logout-button:hover {
+    background: linear-gradient(135deg, #00C9A7, #6A0DAD);
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.profile-button:active,
+.logout-button:active {
+    background: #6A0DAD; /* Solid purple on click */
+}
+
+/* Hamburger Menu Toggle Button */
+.menu-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color and rotation */
+}
+
+.menu-toggle:hover {
+    color: #00C9A7; /* Teal on hover */
+}
+
+.menu-toggle:active {
+    color: #6A0DAD; /* Purple on click */
+}
+
+/* Three Dots Menu Toggle Button */
+button.menu-toggle {
+  font-size: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #123083;
+  z-index: 1201;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Glass Effect for Containers */
+.glass-container {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+    -webkit-backdrop-filter: blur(5px); /* Safari support */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* ===== Modal Background Overlay ===== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== Modal Content (Centered Box) ===== */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #007BFF;
+}
+
+.modal-content p {
+  margin: 10px 0;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: #0056b3;
+}
+
+/* ===== Zoom Animation ===== */
+@keyframes zoomIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===== Optional: Disable page scroll when modal is open ===== */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ===== Optional Responsive Adjustments ===== */
+@media screen and (max-width: 480px) {
+    .modal-content {
+        width: 95%;
+        padding: 25px 15px;
+    }
+}
+
+/* Value Section */
+.value-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.value-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #007BFF;
+}
+
+.value-cards {
+    margin-top: 50px; /* Add space between the navbar and the value cards */
+    display: flex; /* Ensure proper alignment */
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+    justify-content: center; /* Center the cards horizontally */
+    gap: 30px; /* Add spacing between the cards */
+    padding: 20px; /* Optional: Add padding around the cards */
+}
+
+.card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 120px; /* Increased width */
+    height: 120px; /* Increased height */
+    margin-bottom: 15px;
+}
+
+.card h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Gallery Section */
+.gallery-section {
+  text-align: center;
+  margin: 40px auto;
+  padding: 20px;
+  width: 100%; /* Allow the section to take full width */
+  background: rgba(255, 255, 255, 0.9);
+ 
+}
+
+.gallery-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping of cards */
+  justify-content: flex-start; /* Align cards to the left */
+  gap: 40px; /* Increase the space between cards */
+  width: 1200px; /* Explicitly set the width of the container */
+  max-width: 100%; /* Ensure it doesn't exceed the parent width */
+  margin: 0 auto; /* Center the container horizontally */
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+}
+
+/* Gallery Card */
+.gallery-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 300px; /* Keep the width fixed */
+  height: 350px; /* Adjust height as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Stack image and content vertically */
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 70%; /* Adjust image height to take up most of the card */
+  object-fit: cover; /* Ensure the image is cropped properly */
+}
+
+.gallery-card-content {
+  padding: 10px;
+  text-align: center; /* Center-align the heading and date */
+  
+}
+
+.gallery-card-content h3 {
+  font-size: 16px;
+  color: #333;
+  text-decoration: none; /* Remove underline by default */
+  transition: text-decoration 0.3s ease; /* Smooth transition for underline */
+}
+
+.gallery-card-content h3:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.gallery-card-content .event-date {
+  font-size: 14px;
+  color: #007BFF;
+  margin-bottom: 40px;
+}
+
+.gallery-card-content a {
+  text-decoration: none; /* Remove underline from the link by default */
+  color: inherit; /* Inherit the color from the parent element */
+}
+
+.gallery-card-content a:hover h3 {
+  text-decoration: underline; /* Add underline only when hovered */
+}
+
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  width: calc(300px * 3 + 40px); /* Width for 3 cards + gaps (20px each) */
+  margin: 0 auto;
+  overflow: hidden; /* Hide overflow for carousel effect */
+}
+
+/* Carousel Track */
+.carousel-track {
+  display: flex; /* Align cards in a single row */
+  transition: transform 0.5s ease-in-out;
+  gap: 20px; /* Space between cards */
+  width: max-content; /* Ensure the track width adjusts to fit all cards */
+}
+
+/* Carousel Buttons */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 900; /* Lower than the navbar's z-index */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-button.prev {
+  left: 10px;
+}
+
+.carousel-button.next {
+  right: 10px;
+}
+
+.carousel-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Feedback Section */
+.feedback-section {
+  text-align: center;
+  margin: 40px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
+
+.feedback-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #007BFF;
+}
+
+#feedbackForm input,
+#feedbackForm textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#feedbackForm button {
+  padding: 10px 20px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#feedbackForm button:hover {
+  background: #0056b3;
+}
+
+/* Responsive Design for Feedback Section */
+@media (max-width: 768px) {
+  .feedback-section {
+    padding: 15px;
+  }
+
+  #feedbackForm {
+    gap: 10px;
+  }
+
+  #feedbackForm input,
+  #feedbackForm textarea {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  #feedbackForm button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .value-cards {
+        flex-direction: column;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .carousel-slide img {
+        width: 45%; /* Reduce image size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-slide img {
+        width: 90%; /* Show one image per row for very small screens */
+    }
+    .carousel-slide {
+        flex-direction: column; /* Stack images vertically */
+    }
+}
+
+
+

@@ -1,0 +1,458 @@
+/* Base font */
+body {
+   margin: 0;
+   font-family: 'Poppins', sans-serif;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: #f4f4f9;
+   min-height: 100vh;
+   color: #333;
+}
+
+/* Remove horizontal scrollbar */
+html, body {
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden;
+   width: 100%;
+}
+
+/* Navbar */
+.navbar {
+   width: 100%;
+   padding: 20px;
+   height: 25px;
+   background: #fff;
+   backdrop-filter: blur(10px);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.arrow-button {
+    position: fixed;
+    top: -10px;
+    left: 4.2%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    font-size: 50px;
+    color: #007BFF;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s ease;
+    z-index: 1001;
+}
+
+.arrow-button:hover {
+    color: #6A0DAD;
+}
+
+.events-container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 120px;
+   padding: 40px 20px;
+   margin-top: 40px;
+   max-width: 100%;
+   box-sizing: border-box;
+}
+
+.event-card {
+   background: rgba(255, 255, 255, 0.2);
+   border-radius: 15px;
+   overflow: hidden;
+   width: 280px;
+   height: 400px;
+   cursor: pointer;
+   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+   transition: transform 0.3s, box-shadow 0.3s;
+   backdrop-filter: blur(10px);
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   text-align: center;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+}
+
+.event-card:hover {
+   transform: scale(1.05);
+   box-shadow: 0 12px 25px rgba(106, 13, 173, 0.3);
+}
+
+.hover-content,
+.event-info .description,
+.event-info .btn {
+   opacity: 0;
+   transform: translateY(10px);
+   transition: opacity 0.4s ease, transform 0.4s ease;
+   visibility: hidden;
+}
+
+.event-card:hover .hover-content,
+.event-card:hover .event-info .description,
+.event-card:hover .event-info .btn {
+   opacity: 1;
+   transform: translateY(0);
+   visibility: visible;
+}
+
+.event-card:hover .event-info h3,
+.event-card:hover .countdown {
+   opacity: 0;
+   visibility: hidden;
+}
+
+.event-card img {
+   height: 100%; /* Make the image fill the card's height */
+   width: 100%; /* Make the image fill the card's width */
+   object-fit: cover; /* Ensure the image fits within the dimensions without distortion */
+   position: absolute; /* Position the image absolutely */
+   top: 0;
+   left: 0;
+   z-index: 1; /* Place the image behind the text */
+}
+
+.event-info {
+   position: relative; /* Position the info relative to the card */
+   z-index: 2; /* Ensure the info appears above the image */
+   height: auto; /* Allow the info to adjust dynamically */
+   padding: 10px;
+   background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: auto; /* Push the info to the bottom of the card */
+}
+
+.event-info h3 {
+   margin: 10px 0;
+   color: #6A0DAD;
+   font-size: 20px;
+   font-weight: bold;
+   transition: opacity 0.3s ease;
+}
+
+.event-info .description {
+   font-size: 14px;
+   color: #555;
+   margin: 5px 0;
+   display: none;
+   opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.countdown {
+   font-size: 16px;
+   margin-top: 10px;
+   color: #ff5e00;
+   font-weight: bold;
+   text-align: center;
+   transition: opacity 0.3s ease;
+}
+
+.event-info .btn {
+   position: relative;
+   margin-top: 10px;
+   margin-left: auto;
+   padding: 10px 20px;
+   background: linear-gradient(135deg, #007BFF, #00C9A7);
+   color: white;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-weight: bold;
+   transition: 0.3s ease;
+   display: none;
+   opacity: 0;
+   top: -10px;
+   right: 85px;
+}
+
+.event-info .btn:hover {
+   background: linear-gradient(135deg, #00C9A7, #6A0DAD);
+}
+
+.event-card:hover .event-info .description,
+.event-card:hover .event-info .btn {
+   display: block;
+   opacity: 1;
+}
+
+.modal {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.4);
+   display: none;
+   justify-content: center;
+   align-items: center;
+   z-index: 999;
+   max-width: 100%;
+}
+
+.modal-content {
+   background: rgba(255, 255, 255, 0.9);
+   backdrop-filter: blur(15px);
+   padding: 40px;
+   border-radius: 15px;
+   width: 400px;
+   height: auto;
+   max-height: 80%;
+   position: relative;
+   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+   overflow-y: auto;
+}
+
+.close-button {
+   position: absolute;
+   top: 15px;
+   right: 20px;
+   font-size: 30px;
+   color: #333;
+   cursor: pointer;
+}
+
+#modalEventTitle {
+   text-align: center;
+   font-size: 24px;
+   color: #6A0DAD;
+   margin: 20px 0;
+   display: block;
+   width: 100%;
+}
+
+.register-form input,
+#selectedSubEvents {
+   width: 100%;
+   padding: 10px;
+   border-radius: 8px;
+   border: 1px solid #6A0DAD;
+   background: rgba(255, 255, 255, 0.9);
+   font-size: 15px;
+   outline: none;
+   color: #333;
+   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+   margin-bottom: 10px;
+}
+
+.register-form input:focus,
+#selectedSubEvents:focus {
+   border-color: #007BFF;
+   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#selectedSubEvents {
+   margin-top: 10px; /* Optional: Add gap above the read-only label */
+   cursor: not-allowed;
+}
+
+.register-form .btn {
+   display: block; /* Make the button a block-level element */
+   margin: 20px auto; /* Center the button horizontally */
+   padding: 10px 20px;
+   background: linear-gradient(135deg, #007BFF, #00C9A7);
+   color: white;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-weight: bold;
+   transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-form .btn:hover {
+   background: linear-gradient(135deg, #00C9A7, #6A0DAD);
+   transform: scale(1.05);
+}
+
+.register-form label {
+   font-size: 14px;
+   color: #6A0DAD;
+   margin-bottom: 5px;
+   display: block;
+}
+
+.register-form .input-group {
+   margin: 15px 0;
+   position: relative;
+}
+
+/* Dropdown Container */
+#checkboxList {
+   display: none;
+   position: absolute;
+   background: #fff;
+   border: 1px solid #6A0DAD;
+   border-radius: 8px;
+   padding: 10px;
+   max-height: 120px;
+   overflow-y: auto;
+   z-index: 1000;
+   width: 80%;
+   max-width: 300px;
+   white-space: normal;
+}
+/* Checkbox Items */
+#checkboxList label {
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: space-between;
+   align-items: center;
+   padding: 8px 12px;
+   font-size: 14px;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   user-select: none;
+}
+
+/* Optional: Highlight on hover */
+#checkboxList label:hover {
+   background-color: #f3e9ff;
+}
+
+/* Checkbox style */
+#checkboxList input[type="checkbox"] {
+   margin-left: 12px;
+   accent-color: #6A0DAD; /* Optional: sets checkbox color to match theme */
+   width: 16px;
+   height: 16px;
+}
+#checkboxList input[type="checkbox"]:focus {
+   outline: none;
+   box-shadow: none; /* 🔥 Removes blue glow */
+}
+
+/* Fix weird margin/padding inside the dropdown */
+.dropdown-checkbox {
+   position: relative;
+   width: 100%;
+}
+
+.dropdown-checkbox button {
+   width: 105%;
+   padding: 10px;
+   border-radius: 8px;
+   border: 1px solid #6A0DAD;
+   background: #fff;
+   font-size: 15px;
+   color: #333;
+   text-align: left;
+   cursor: pointer;
+   margin-bottom: 15px; /* Add gap below the dropdown button */
+}
+
+#checkboxList input[type="checkbox"] {
+   accent-color: #6A0DAD;
+}
+
+.brochure-link {
+   margin-top: 15px;
+   text-align: center;
+}
+
+.brochure-btn {
+   text-decoration: none;
+   font-size: 14px;
+   color: white; /* Default text color */
+   transition: color 0.3s ease;
+}
+
+.brochure-btn:hover {
+   color: white; /* Ensure text remains white on hover */
+}
+
+.custom-modal {
+   display: none;
+   position: fixed;
+   z-index: 1000;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.6);
+   justify-content: center;
+   align-items: center;
+}
+
+.custom-modal-content {
+   background-color: #fff;
+   padding: 20px 30px;
+   border-radius: 10px;
+   text-align: center;
+   max-width: 400px;
+   width: 90%;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-modal-title {
+   font-weight: bold;
+   font-size: 20px;
+   margin-bottom: 10px;
+}
+
+.custom-modal button {
+   margin-top: 15px;
+   padding: 8px 20px;
+   border: none;
+   background-color: #007bff;
+   color: white;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+/* OK Button in Status Modal */
+.custom-modal-content button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #007BFF, #00C9A7); /* Default gradient background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.custom-modal-content button:hover {
+    background: linear-gradient(135deg, #00C9A7, #6A0DAD); /* Change gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Spinner Overlay */
+#spinnerOverlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+   display: none;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000; /* Ensure it appears above all other content */
+}
+
+/* Spinner */
+.spinner {
+   border: 6px solid #f3f3f3;
+   border-top: 6px solid #3498db; /* Blue color */
+   border-radius: 50%;
+   width: 50px;
+   height: 50px;
+   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+   0% {
+       transform: rotate(0deg);
+   }
+   100% {
+       transform: rotate(360deg);
+   }
+}
