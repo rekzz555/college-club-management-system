@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="http://localhost/college_club/static/admin.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-container {
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img.card-image {
+      width: 150px; /* Set a fixed width */
+      height: 150px; /* Set a fixed height */
+      object-fit: cover; /* Ensure the image fits within the dimensions */
+      margin-bottom: 10px; /* Add spacing below the image */
+    }
+
+    .logout-btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth transition for background color */
+    }
+
+    .logout-btn:hover {
+      background-color: #c82333; /* Darker red on hover */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <h1>Welcome, Admin!</h1>
+
+    <div class="card-grid">
+      <div class="card" onclick="location.href='http://localhost/college_club/admin/clubs.php'">
+        <img src="http://localhost/college_club/image/clubregistration.png" alt="Clubs" class="card-image">
+        <p>Club Registrations</p>
+      </div>
+      <div class="card" onclick="location.href='http://localhost/college_club/admin/events.php'">
+        <img src="http://localhost/college_club/image/eventregistration.png" alt="Events" class="card-image">
+        <p>Event Registrations</p>
+      </div>
+      <div class="card" onclick="location.href='http://localhost/college_club/admin/feedback.php'">
+        <img src="http://localhost/college_club/image/feedback.png" alt="Feedback" class="card-image">
+        <p>Feedback</p>
+      </div>
+    </div>
+
+    <button class="logout-btn" onclick="location.href='http://localhost/college_club/admin/login.html'">Logout</button>
+  </div>
+
+</body>
+</html>

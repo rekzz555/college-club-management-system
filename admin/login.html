@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="http://localhost/college_club/static/losi.css">
+  <style>
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+      backdrop-filter: blur(10px); /* Apply blur effect */
+      -webkit-backdrop-filter: blur(10px); /* For Safari support */
+      padding: 20px 30px;
+      border-radius: 15px; /* Rounded corners for a smooth look */
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* Subtle shadow for depth */
+      display: flex; /* Use flexbox */
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center elements horizontally */
+      justify-content: center; /* Center elements vertically */
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Add a subtle border */
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      margin-left: 34px; /* Move the button 10px to the right */
+      padding: 8px 16px; /* Adjust padding for a smaller button */
+      background: #dc3545; /* Red background */
+      color: white;
+      border: none;
+      border-radius: 5px; /* Slightly rounded corners */
+      font-size: 14px; /* Standard font size */
+      cursor: pointer;
+      width: auto; /* Adjust width to fit the content */
+      height: auto; /* Adjust height to fit the content */
+      transition: all 0.3s ease; /* Smooth transition for hover effects */
+      align-self: center; /* Center the button horizontally */
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Admin Login</h2>
+    <form id="adminLoginForm" method="POST" action="javascript:void(0);">
+      <div class="input-group">
+        <input type="email" name="email" required />
+        <label>Email</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" id="password" required />
+        <label>Password</label>
+        <span class="toggle-password" onclick="togglePassword('password', this)">
+          <i class="fas fa-eye-slash"></i> <!-- Closed eye icon by default -->
+        </span>
+      </div>
+
+     
+      <button type="submit" name="login">Login</button>
+<button type="button" id="studentLogin">Student Login</button>
+
+    </form>
+  </div>
+
+  <div id="modal">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <button id="okButton">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("adminLoginForm");
+    const modal = document.getElementById("modal");
+    const okBtn = document.getElementById("okButton");
+    let shouldRedirect = false;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch("http://localhost/college_club/admin/login.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById("modal-message").textContent = data.message;
+          modal.style.display = "flex";
+          shouldRedirect = data.status === "success"; // Corrected the typo here
+        })
+        .catch(() => {
+          document.getElementById("modal-message").textContent = "Something went wrong.";
+          modal.style.display = "flex";
+          shouldRedirect = false;
+        });
+    });
+
+    okBtn.addEventListener("click", function () {
+      modal.style.display = "none";
+      if (shouldRedirect) {
+        window.location.href = "http://localhost/college_club/admin/dashboard.html";
+      }
+    });
+
+    function togglePassword(id, icon) {
+      const field = document.getElementById(id); 
+      const eyeIcon = icon.querySelector("i");
+  
+      if (field.type === "password") {
+        field.type = "text";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+      } else {
+        field.type = "password";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+      }
+    }
+
+    document.getElementById("studentLogin").addEventListener("click", function () {
+  window.location.href = "http://localhost/college_club/templates/login.html";
+});
+
+  </script>
+</body>
+</html>
+``` 
