@@ -23,7 +23,7 @@ The project helps students register for clubs and events while allowing administ
 
 - MySQL Database Integration
 
-🛠️ Technologies Used:
+##🛠️ Technologies Used:
 
 - HTML5
 
