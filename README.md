@@ -15,11 +15,11 @@ Secure Authentication,
 MySQL Database Integration
 
 🛠️ Technologies Used:
-HTML5
-CSS3
-JavaScript
-PHP
-MySQL
+HTML5, 
+CSS3, 
+JavaScript, 
+PHP, 
+MySQL, 
 XAMPP
 
 ⚙️ Installation:
