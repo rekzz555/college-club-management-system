@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup</title>
+  <link rel="stylesheet" href="http://localhost/college_club/static/losi.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Add modal CSS directly here or to your external losi.css file */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+      backdrop-filter: blur(10px); /* Apply blur effect */
+      -webkit-backdrop-filter: blur(10px); /* For Safari support */
+      padding: 20px 30px;
+      border-radius: 15px; /* Rounded corners for a smooth look */
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* Subtle shadow for depth */
+      display: flex; /* Use flexbox */
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center elements horizontally */
+      justify-content: center; /* Center elements vertically */
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Add a subtle border */
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      margin-left: 40px; /* Move the button 10px to the right */
+      padding: 8px 16px; /* Adjust padding for a smaller button */
+      background: #dc3545; /* Red background */
+      color: white;
+      border: none;
+      border-radius: 5px; /* Slightly rounded corners */
+      font-size: 14px; /* Standard font size */
+      cursor: pointer;
+      width: auto; /* Adjust width to fit the content */
+      height: auto; /* Adjust height to fit the content */
+      transition: all 0.3s ease; /* Smooth transition for hover effects */
+      align-self: center; /* Center the button horizontally */
+    }
+
+    .modal-content button:hover {
+      background: #c82333; /* Darker red on hover */
+    }
+
+    .modal-content button:active {
+      background: #a71d2a; /* Even darker red on click */
+    }
+
+    /* Button Styling */
+    button {
+        width: 122%; /* Fit the container */
+        padding: 13px; /* Standard padding */
+        border: none;
+        left: -25px; /* Adjusted to fit the container */
+        background: linear-gradient(135deg, #007BFF, #00C9A7); /* Blue to teal gradient */
+        color: white;
+        font-size: 16px; /* Standard font size */
+        cursor: pointer;
+        border-radius: 8px; /* Slightly rounded corners */
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        display: block; /* Ensure the button behaves like a block element */
+        position: relative;
+    }
+
+    button:hover {
+        background: linear-gradient(135deg, #00C9A7, #6A0DAD); /* Teal to purple gradient */
+        transform: scale(1.05); /* Slightly enlarge on hover */
+        box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3); /* Purple glow effect */
+    }
+
+    button:active {
+        background: #6A0DAD; /* Solid purple on click */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-container">
+    <h2>Signup</h2>
+    <form action="http://localhost/college_club/php/signup.php" method="POST">
+      <div class="input-group">
+        <input type="text" name="fullname" id="fullname" required>
+        <label>Full Name</label>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" id="email" required>
+        <label>Email</label>
+      </div>   
+
+      <div class="input-group">
+        <input type="password" name="password" id="password" required>
+        <label for="password">Password</label>
+        <span class="toggle-password" onclick="togglePassword('password', this)">
+          <i class="fas fa-eye-slash"></i> <!-- Closed eye icon by default -->
+        </span>
+      </div>
+      
+      <div class="input-group">
+        <input type="password" name="confirm_password" id="confirm_password" required>
+        <label for="confirm_password">Confirm Password</label>
+        <span class="toggle-password" onclick="togglePassword('confirm_password', this)">
+          <i class="fas fa-eye-slash"></i> <!-- Closed eye icon by default -->
+        </span>
+      </div>
+      
+
+      <button type="submit">Signup</button> 
+      <p class="login-link">Already have an account? <a href="http://localhost/college_club/templates/login.html">Login</a></p>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal">
+    <div class="modal-content">
+      <p id="modal-message">Message goes here</p>
+      <button id="okBtn">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.querySelector('form');
+    const modal = document.getElementById('modal');
+    const modalMessage = document.getElementById('modal-message');
+    const okBtn = document.getElementById('okBtn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch('http://localhost/college_club/php/signup.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        modalMessage.textContent = data.message;
+        modal.style.display = 'flex';
+        if (data.status === 'success') {
+          form.reset();
+        }
+      })
+      .catch(err => {
+        modalMessage.textContent = 'Something went wrong!';
+        modal.style.display = 'flex';
+      });
+    });
+
+    okBtn.addEventListener('click', function () {
+      modal.style.display = 'none';
+      form.reset(); // reset form on OK
+    });
+
+    function checkPasswordStrength() {
+  const password = document.getElementById("password").value;
+  const strengthMsg = document.getElementById("strength-message");
+  
+  let strength = "Weak";
+  const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
+  if (password.length === 0) {
+    strengthMsg.textContent = "";
+    return;
+  }
+
+  if (strongRegex.test(password)) {
+    strength = "Strong";
+    strengthMsg.style.color = "green";
+  } else if (password.length >= 6) {
+    strength = "Medium";
+    strengthMsg.style.color = "orange";
+  } else {
+    strength = "Weak";
+    strengthMsg.style.color = "red";
+  }
+
+  strengthMsg.textContent = `Strength: ${strength}`;
+}
+
+function togglePassword(id, icon) {
+  const field = document.getElementById(id);
+  const eyeIcon = icon.querySelector("i");
+
+  if (field.type === "password") {
+    field.type = "text"; // Show the password
+    eyeIcon.classList.remove("fa-eye-slash"); // Remove closed eye icon
+    eyeIcon.classList.add("fa-eye"); // Add open eye icon
+  } else {
+    field.type = "password"; // Hide the password
+    eyeIcon.classList.remove("fa-eye"); // Remove open eye icon
+    eyeIcon.classList.add("fa-eye-slash"); // Add closed eye icon
+  }
+}
+
+  </script>
+</body>
+</html>

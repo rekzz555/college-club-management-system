@@ -1,0 +1,177 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="http://localhost/college_club/static/home.css">
+</head>
+<body>
+
+  <!-- Side Menu -->
+  <div class="side-menu" id="sideMenu">
+   
+
+   
+
+    <button type="button" id="logout-button" class="logout-button" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- Hamburger Menu Toggle Button -->
+  <button class="menu-toggle">&#9776;</button>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <button class="nav-button" onclick="loadContent('home')">Home</button>
+    <button class="nav-button" onclick="loadContent('clubs')">Clubs</button>
+    <button class="nav-button" onclick="loadContent('events')">Events</button>
+    <button class="nav-button" onclick="loadContent('contact')">Contact</button>
+  </div>
+
+  <!-- Home Page Content -->
+  <div class="home-container">
+
+    <!-- Why Join a Club Section -->
+    <section class="value-section">
+      <h2>Why Join a Club?</h2>
+      <div class="value-cards">
+        <div class="card">
+          <img src="http://localhost/college_club/image/network.png" alt="Networking">
+          <h4>Networking</h4>
+          <p>Meet people with similar interests and grow your connections.</p>
+        </div>
+        <div class="card">
+          <img src="http://localhost/college_club/image/skill.png" alt="Skill Development">
+          <h4>Skill Development</h4>
+          <p>Learn and practice leadership, event management, and more.</p>
+        </div>
+        <div class="card">
+          <img src="http://localhost/college_club/image/fun.png" alt="Fun & Experience">
+          <h4>Fun & Experience</h4>
+          <p>Participate in exciting events, fests, and real-world projects.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section with Carousel -->
+    <section class="gallery-section">
+      <h2>Gallery</h2>
+      <div class="carousel-container">
+        <button class="carousel-button prev" onclick="moveCarousel(-1)">&#10094;</button>
+        <div class="carousel-track">
+          <!-- First Card -->
+          <div class="gallery-card">
+            <img src="http://localhost/college_club/image/delilah.jpg" alt="Event 1">
+            <div class="gallery-card-content">
+              <a href="http://localhost/college_club/events/event1.html"><h3>Delilah - A Tale Of Forgiveness</h3></a>
+              <span class="event-date">Apr 10, 2025</span>
+            </div>
+          </div>
+          <!-- Second Card -->
+          <div class="gallery-card">
+            <img src="http://localhost/college_club/image/nrityadarpan.jpg" alt="Event 2">
+            <div class="gallery-card-content">
+              <a href="http://localhost/college_club/events/event2.html"><h3>Nrityadarpan 2025</h3></a>
+              <span class="event-date">Apr 15, 2025</span>
+            </div>
+          </div>
+          <!-- Third Card -->
+          <div class="gallery-card">
+            <img src="http://localhost/college_club/image/talestra.jpg" alt="Event 3">
+            <div class="gallery-card-content">
+              <a href="http://localhost/college_club/events/event3.html"><h3>Talestra</h3></a>
+              <span class="event-date">Apr 20, 2025</span>
+            </div>
+          </div>
+         
+        <button class="carousel-button next" onclick="moveCarousel(1)">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- Feedback / Suggestion Box -->
+    <section class="feedback-section">
+      <h2>We'd Love Your Feedback!</h2>
+      <form id="feedbackForm" action="http://localhost/college_club/php/home.php" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Your suggestions/feedback..." required></textarea>
+
+        <!-- Event Name Dropdown -->
+        <label for="event_name">Select Event:</label>
+        <select id="event_name" name="event_name" onchange="setClubAndEventId()" required>
+          <option value="" disabled selected>Select an event</option>
+          <option value="Meliora">Meliora</option>
+          <option value="Shilpkala">Shilpkala</option>
+          <option value="Adroit">Adroit</option>
+        </select>
+
+        <!-- Hidden fields for club_id and event_id -->
+        <input type="hidden" id="club_id" name="club_id" value="">
+        <input type="hidden" id="event_id" name="event_id" value="">
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <!-- Thank You Modal -->
+      <div id="thankYouModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close" onclick="closeThankYouModal()">&times;</span>
+          <h2>Thank You!</h2>
+          <p id="thankYouMessage"></p>
+          <button onclick="closeThankYouModal()">Close</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const form = document.getElementById("feedbackForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const userName = formData.get("name"); // Get the name entered
+
+      fetch("http://localhost/college_club/php/home.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            showThankYouModal(userName);
+            form.reset(); // Clear the form after successful submission
+          } else {
+            alert("Something went wrong. Please try again.");
+          }
+        })
+        .catch(() => {
+          alert("Failed to submit. Check your connection or server.");
+        });
+    });
+
+    function showThankYouModal(name) {
+      const msg = document.getElementById("thankYouMessage");
+      msg.innerText = `Thank you, ${name}, for your feedback!`;
+      document.getElementById("thankYouModal").style.display = "flex";
+    }
+
+    function closeThankYouModal() {
+      document.getElementById("thankYouModal").style.display = "none";
+    }
+
+    function redirectToDashboard() {
+      window.location.href = "http://localhost/college_club/templates/home.html";
+    }
+  </script>
+  
+
+  <script src="http://localhost/college_club/js/home.js"></script>
+</body>
+</html>
+
+

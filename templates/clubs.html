@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="http://localhost/college_club/static/clubs.css">
+    </head>
+    <body>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <button class="arrow-button" onclick="goBack()">&#x2190;</button> <!-- Unicode fat left arrow -->
+        </nav>
+
+        <div class="wrapper">
+            <!-- Film Club Card -->
+            <div class="card">
+                <img src="http://localhost/college_club/image/filmclub.jpg" alt="Film Club Logo">
+                <div class="info">
+                    <h1>Film Club</h1>
+                    <p class="description">
+                        The film club organises regular screening of artistic cinema, documentaries and short films. The forum provides the...
+                    </p>
+                    <a href="#" class="read-more" onclick="openModal('Film Club', 'The film club organises regular screening of artistic cinema, documentaries and short films. The forum provides the students with an oppurtunity to watch, discuss and review films. Moreover, it ios a fantastic launch-pad for the student aspirants in the field, exposing them to liberal arts and critical thinking')">Read More</a>
+                    <a href="#" class="btn" onclick="openRegisterModal('Film Club', 'CLB001')">Register</a>
+                </div>
+            </div>
+
+            <!-- Dance Club Card -->
+            <div class="card">
+                <img src="http://localhost/college_club/image/danceclub.jpg" alt="Dance Club Logo">
+                <div class="info">
+                    <h1>Dance Club</h1>
+                    <p class="description">
+                        The Dance Club is a place for artistic expression, originality, and pure delight. It acts as...
+                    </p>
+                    <a href="#" class="read-more" onclick="openModal('Dance Club', 'The Dance Club is a place for artistic expression, originality, and pure delight. It acts as a catalyst for personal development and self-expression, providing a welcoming and supportive environment where students discover the joy and discipline of dance while embracing its power and realizing their full potential.')">Read More</a>
+                    <a href="#" class="btn" onclick="openRegisterModal('Dance Club', 'CLB002')">Register</a>
+                </div>
+            </div>
+
+            <!-- Music Club Card -->
+            <div class="card">
+                <img src="http://localhost/college_club/image/musicclub.jpg"alt="Music Club Logo">
+                <div class="info">
+                    <h1>Music Club</h1>
+                    <p class="description">
+                        The Music Club is a group of skilled singers and musicians from diverse cultures and traditions. It has music...
+                    </p>
+                    <a href="#" class="read-more" onclick="openModal('Music Club', 'The Music Club is a group of skilled singers and musicians from diverse cultures and traditions. It has music conductors and club coordinators who support and guide students in exploring their musical abilities. The club organizes the celebrated event, Woodrock, providing students with an opportunity to perform and showcase their talents. Professional training and guidance are offered to help students develop a fundamental understanding of music. They receive training in singing, breathing techniques, scales, intervals, and modulation. Members also participate in prestigious intercollegiate music festivals.')">Read More</a>
+                    <a href="#" class="btn" onclick="openRegisterModal('Music Club', 'CLB003')">Register</a>
+                </div>
+            </div>
+
+            <!-- Art Club Card -->
+            <div class="card">
+                <img src="http://localhost/college_club/image/artclub.jpg" alt="Art Club Logo">
+                <div class="info">
+                    <h1>Art Club</h1>
+                    <p class="description">
+                        Unleash your creativity with painting and crafts.
+                    </p>
+                    <a href="#" class="read-more" onclick="openModal('Art Club', 'The Fine Arts Club is a creative club that brings together individuals who share a passion for various forms of art. Through regular meetings, workshops, and collaborations, members of the club explore and express their artistic talents in a supportive and inspiring environment. The club welcomes all skill levels and artistic backgrounds, creating a diverse and inclusive community of artists. Members of the club have the chance to engage in a wide range of activities, including organized art exhibitions, workshops, and classes conducted by guest artists. Through collaborations and group projects, artists get the chance to work together, exchange ideas, and create meaningful connections. This shared creative space encourages artistic inspiration and exploration, pushing members to think outside the box.')">Read More</a>
+                    <a href="#" class="btn" onclick="openRegisterModal('Art Club', 'CLB004')">Register</a>
+                </div>
+            </div>
+
+            <!-- Sports Club Card -->
+            <div class="card">
+                <img src="http://localhost/college_club/image/sportsclub.jpg" alt="Sports Club Logo">
+                <div class="info">
+                    <h1>Sports Club</h1>
+                    <p class="description">
+                        Engage in various sports activities and competitions.
+                    </p>
+                    <a href="#" class="read-more" onclick="openModal('Sports Club', 'The Sports Club is a hub for athletic excellence, teamwork, and personal growth. It provides a dynamic and supportive environment where students can develop their skills, enhance their physical fitness, and embrace the spirit of sportsmanship. The club offers training in various sports to cater to diverse interests and skill levels. Throughout the year, it organizes tournaments, friendly matches, and workshops, giving students opportunities to compete, learn, and showcase their abilities. Beyond the playing field, the club fosters discipline, leadership, and camaraderie, creating lasting memories and a strong sense of community among its members.')">Read More</a>
+                    <a href="#" class="btn" onclick="openRegisterModal('Sports Club', 'CLB005')">Register</a>
+                </div>
+            </div>
+
+
+            <!-- Commerce Club Card -->
+            <div class="card">
+                <img src="http://localhost/college_club/image/commerceclub.jpg" alt="Commerce Club Logo">
+                <div class="info">
+                    <h1>Commerce Club</h1>
+                    <p class="description">
+                        Commerce Club focuses on practical training for the theoretical knowledge students gain...
+                    </p>
+                    <a href="#" class="read-more" onclick="openModal('Commerce Club', 'Commerce Club focuses on practical training for the theoretical knowledge students gain in the classroom. The club provides a comprehensive understanding of the cultural, financial, geopolitical, national and international economic issues that affect commerce activities. The club organises programmes like extension lectures, seminars and industry interactive sessions to suit the latest industry demands.')">Read More</a>
+                    <a href="#" class="btn" onclick="openRegisterModal('Commerce Club', 'CLB006')">Register</a>
+                </div>
+            </div>
+
+<!-- Writers Club Card -->
+<div class="card">
+    <img src="http://localhost/college_club/image/writersclub.jpg" alt="Writers Club Logo">
+    <div class="info">
+        <h1>Writers Club</h1>
+        <p class="description">
+            The Writers Association aims to promote creative and critical literary expressions among its members from various deaneries,
+        </p>
+        <a href="#" class="read-more" onclick="openModal('Writers Club', 'The Writers Association aims to promote creative and critical literary expressions among its members from various deaneries, For students interested in the marvellous ways in which language works, the platform provides an opportunity to explore and enhance their writing abilities and to work closely in the quietude of literary engagement, irrespective of their discipline. The association organises workshops, interaction with authors and guest lectures to offer training and suggestions to improve the members\' skills. The association brings forth student publications, including poetry, stories, and articles through various publishing endeavours, like magazines, newsletters and anthologies, allowing the members\nto showcase their work and engage with a wider world of like-minded individuals. Through its activities, the association envisions cultivating empathetic, skilful, and ethical mindsets that operate on shared human values.')">Read More</a>
+        <a href="#" class="btn" onclick="openRegisterModal('Writers Club', 'CLB007')">Register</a>
+    </div>
+</div>
+
+
+        </div>
+
+        <!-- Read More Modal -->
+        <div id="descriptionModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+<div id="registerModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeRegisterModal()">&times;</span>
+
+        <!-- ✅ Proper PHP-compatible form starts here -->
+        <form id="registerForm" class="register-form" method="POST" action="http://localhost/college_club/php/clubs.php">
+            <h2 id="registerModalTitle">Register for the Club</h2>
+
+            <input type="hidden" id="club" name="club"> <!-- Store club name -->
+            <input type="hidden" id="club_id" name="club_id">
+
+
+            <div class="form-group">
+                <input type="text" id="name" name="name" required>
+                <label for="name">Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" required>
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="phone" name="phone" required>
+                <label for="phone">Phone Number</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="registerNo" name="registerNo" required>
+                <label for="registerNo">Register No</label>
+            </div>
+
+            <div id="dropdownContainer" class="form-group" style="display: none;">
+                <select id="options" name="options">
+                    <option value="" disabled selected hidden>Select an option</option>
+                </select>
+            </div>
+
+            <div id="experienceContainer" class="form-group">
+                <textarea id="experience" name="experience" rows="4"></textarea>
+                <label for="experience">Experience(optional)</label>
+            </div>
+
+           
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Spinner Overlay -->
+<div id="spinnerOverlay">
+    <div class="spinner"></div>
+</div>
+
+<script>
+function openModal(clubName, description) {
+    // Set the modal title and description dynamically
+    document.getElementById("modalTitle").textContent = clubName;
+    document.getElementById("modalDescription").textContent = description;
+
+    // Display the modal
+    document.getElementById("descriptionModal").style.display = "block";
+}
+
+function closeModal() {
+    // Hide the modal
+    document.getElementById("descriptionModal").style.display = "none";
+}
+
+function openRegisterModal(clubName, clubId) {
+    // Set the club name and ID dynamically in the form
+    document.getElementById("club").value = clubName;
+    document.getElementById("club_id").value = clubId;
+
+    // Update the modal title
+    document.getElementById("registerModalTitle").textContent = `Register for ${clubName}`;
+
+    // Display the modal
+    document.getElementById("registerModal").style.display = "block";
+}
+
+function closeRegisterModal() {
+    // Hide the modal
+    document.getElementById("registerModal").style.display = "none";
+}
+</script>
+
+        <script src="http://localhost/college_club/js/clubs.js"></script>
+    </body>
+</html>
+
+
+
+
+
+

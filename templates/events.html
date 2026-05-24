@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Events</title>
+
+   <!-- Font Awesome CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+   <!-- Custom CSS -->
+   <link rel="stylesheet" href="http://localhost/college_club/static/events.css">
+
+   <!-- Custom JS -->
+   <script src="http://localhost/college_club/js/events.js" defer></script>
+
+   <style>
+      .hover-content {
+         opacity: 0;
+         transform: translateY(20px);
+         transition: opacity 0.4s ease, transform 0.4s ease;
+         display: none;
+      }
+
+      .event-card:hover .hover-content {
+         display: block;
+         opacity: 1;
+         transform: translateY(0);
+      }
+
+      .event-card:hover .event-title,
+      .event-card:hover .countdown {
+         display: none;
+      }
+   </style>
+</head>
+<body>
+
+   <!-- Navbar -->
+   <nav class="navbar">
+      <button class="arrow-button" onclick="goBack()">&#x2190;</button>
+   </nav>
+
+   <!-- Events Section -->
+   <div class="events-container">
+
+      <!-- Event Cards -->
+      <div class="event-card">
+         <img src="http://localhost/college_club/image/meliora.jpg" alt="Meliora">
+         <div class="event-info">
+            <h3 class="event-title">Meliora</h3>
+            <div id="countdown-meliora" class="countdown">Starts in: 3 days</div>
+            <div class="hover-content">
+               <p>"Ink your imagination at Meliora – A celebration of words, wonder, and writers."</p>
+               <button class="btn" onclick="showEventDetails('Meliora')">Register</button>
+            </div>
+         </div>
+      </div>
+
+      <div class="event-card">
+         <img src="http://localhost/college_club/image/shilpkala.jpg" alt="Shilpkala">
+         <div class="event-info">
+            <h3 class="event-title">Shilpkala</h3>
+            <div id="countdown-shilpkala" class="countdown">Starts in: 5 days</div>
+            <div class="hover-content">
+               <p>"Shilpakala – Where colors speak and imagination breathes."</p>
+               <button class="btn" onclick="showEventDetails('Shilpkala')">Register</button>
+            </div>
+         </div>
+      </div>
+
+      <div class="event-card">
+         <img src="http://localhost/college_club/image/adroit.jpg" alt="Adroit">
+         <div class="event-info">
+            <h3 class="event-title">Adroit</h3>
+            <div id="countdown-adroit" class="countdown">Starts in: 7 days</div>
+            <div class="hover-content">
+               <p>"Step into Adroit – The arena of ideas, intellect, and innovation."</p>
+               <button class="btn" onclick="showEventDetails('Adroit')">Register</button>
+            </div>
+         </div>
+      </div>
+
+   </div>
+
+   <!-- Register Modal -->
+   <div id="registerModal" class="modal">
+      <div class="modal-content">
+         <span class="close-button" onclick="closeModal()">&times;</span>
+         <h2 id="modalEventTitle">Register for Event</h2>
+
+         <form id="registerForm" class="register-form" method="POST" action="http://localhost/college_club/php/events.php">
+
+            <!-- Full Name -->
+            <div class="input-group">
+               <label for="name">Full Name</label>
+               <input type="text" id="name" name="name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="input-group">
+               <label for="email">Email</label>
+               <input type="email" id="email" name="email" required>
+            </div>
+
+            <!-- Register Number -->
+            <div class="input-group">
+               <label for="register_no">Register No</label>
+               <input type="text" id="register_no" name="register_no" required>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="input-group">
+               <label for="phoneno">Phone Number</label>
+               <input type="tel" id="phoneno" name="phoneno" required>
+            </div>
+
+            <!-- Club ID -->
+            <input type="hidden" id="club_id" name="club_id">
+
+            <!-- Sub-events -->
+            <div class="input-group">
+               <label for="subEventDropdown">Choose Sub-events</label>
+               <div class="dropdown-checkbox" id="subEventDropdown">
+                  <button type="button" onclick="toggleCheckboxDropdown()">Select Sub-events ⬇</button>
+                  <div id="checkboxList" class="checkbox-list"></div>
+               </div>
+               <input type="text" id="selectedSubEvents" name="selectedSubEvents" readonly placeholder="Selected sub-events will appear here">
+            </div>
+
+            <!-- Brochure Download -->
+            <div class="brochure-link">
+               <button type="button" id="downloadBrochure" class="btn brochure-btn">Download Brochure</button>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn submit-btn">Register</button>
+
+         </form>
+      </div>
+   </div>
+
+   <!-- Spinner Overlay -->
+<div id="spinnerOverlay">
+   <div class="spinner"></div>
+</div>
+
+   <!-- Status Modal -->
+   <div id="statusModal" class="custom-modal">
+      <div class="custom-modal-content">
+         <span id="statusTitle" class="custom-modal-title"></span>
+         <p id="statusMessage"></p>
+         <button onclick="closeStatusModal()">OK</button>
+      </div>
+   </div>
+
+   <script>
+      function showEventDetails(eventName) {
+         // Map event names to club IDs
+         const eventToClubMap = {
+            "Meliora": "CLB007",
+            "Shilpkala": "CLB004",
+            "Adroit": "CLB006"
+         };
+
+         // Set the event name in the modal title
+         document.getElementById("modalEventTitle").textContent = `Register for ${eventName}`;
+
+         // Set the club_id dynamically
+         const clubId = eventToClubMap[eventName];
+         document.getElementById("club_id").value = clubId;
+
+         // Show the modal
+         document.getElementById("registerModal").style.display = "block";
+      }
+   </script>
+
+</body>
+</html>
