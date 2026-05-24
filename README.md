@@ -1,4 +1,4 @@
-EVENTUS – College Club Management System
+EventUs – College Club Management System
 
 EVENTUS is a web-based College Club Management System developed using PHP, MySQL, HTML, CSS, and JavaScript.
 The project helps students register for clubs and events while allowing administrators to manage registrations efficiently.
