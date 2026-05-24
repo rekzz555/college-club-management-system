@@ -5,11 +5,8 @@ The project helps students register for clubs and events while allowing administ
 
 ##✨ Features:
 -Student Login & Registration
-
 -Admin Login
-
 -Club Registration System
-
 -Event Management
 -Feedback System
 -Responsive UI Design
