@@ -22,16 +22,4 @@ PHP,
 MySQL, 
 XAMPP
 
-⚙️ Installation:
-Clone the repository
-git clone https://github.com/your-username/EVENTUS.git
 
-Move the project folder to:
-C:\xampp\htdocs\
-
-Start Apache and MySQL in XAMPP
-Create a database named:
-eventus
-
-Run the project:
-http://localhost/EVENTUS/
