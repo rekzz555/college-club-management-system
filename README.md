@@ -5,25 +5,26 @@ The project helps students register for clubs and events while allowing administ
 
 ##✨ Features:
 
--Student Login & Registration
+- Student Login & Registration
 
--Admin Login
+- Admin Login
 
--Club Registration System
+- Club Registration System
 
--Event Management
+- Event Management
         
--Feedback System
+- Feedback System
 
--Responsive UI Design
+- Responsive UI Design
 
--Popup Modal Notifications
+- Popup Modal Notifications
 
--Secure Authentication
+- Secure Authentication
 
--MySQL Database Integration
+- MySQL Database Integration
 
 🛠️ Technologies Used:
+
 - HTML5
 
 - CSS3
@@ -33,8 +34,8 @@ The project helps students register for clubs and events while allowing administ
 - PHP
   
 - MySQL
-- 
+  
 - XAMPP
-- 
+  
 
 
